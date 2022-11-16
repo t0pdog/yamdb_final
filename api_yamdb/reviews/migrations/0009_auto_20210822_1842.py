@@ -8,52 +8,32 @@ import reviews.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("reviews", "0008_auto_20210821_1450"),
+        ('reviews', '0008_auto_20210821_1450'),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name="genretitle",
-            options={
-                "verbose_name": "Произведение и жанр",
-                "verbose_name_plural": "Произведения и жанры",
-            },
+            name='genretitle',
+            options={'verbose_name': 'Произведение и жанр', 'verbose_name_plural': 'Произведения и жанры'},
         ),
         migrations.AlterField(
-            model_name="genretitle",
-            name="genre",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="reviews.Genre",
-                verbose_name="Жанр",
-            ),
+            model_name='genretitle',
+            name='genre',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='reviews.Genre', verbose_name='Жанр'),
         ),
         migrations.AlterField(
-            model_name="genretitle",
-            name="title",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="reviews.Title",
-                verbose_name="Произведение",
-            ),
+            model_name='genretitle',
+            name='title',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='reviews.Title', verbose_name='Произведение'),
         ),
         migrations.AlterField(
-            model_name="title",
-            name="category",
-            field=models.ForeignKey(
-                null=True,
-                on_delete=django.db.models.deletion.SET_NULL,
-                related_name="titles",
-                to="reviews.Category",
-                verbose_name="Категория",
-            ),
+            model_name='title',
+            name='category',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='titles', to='reviews.Category', verbose_name='Категория'),
         ),
         migrations.AlterField(
-            model_name="title",
-            name="year",
-            field=models.IntegerField(
-                validators=[reviews.validators.validate_year],
-                verbose_name="Дата выхода",
-            ),
+            model_name='title',
+            name='year',
+            field=models.IntegerField(validators=[reviews.validators.validate_year], verbose_name='Дата выхода'),
         ),
     ]
