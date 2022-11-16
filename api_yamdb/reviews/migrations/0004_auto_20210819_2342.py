@@ -9,59 +9,77 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('reviews', '0003_auto_20210817_1500'),
+        ("reviews", "0003_auto_20210817_1500"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='category',
-            options={'ordering': ['name']},
+            name="category",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='genre',
-            options={'ordering': ['name']},
+            name="genre",
+            options={"ordering": ["name"]},
         ),
         migrations.AlterModelOptions(
-            name='review',
-            options={'ordering': ['-pub_date']},
+            name="review",
+            options={"ordering": ["-pub_date"]},
         ),
         migrations.RemoveConstraint(
-            model_name='review',
-            name='unique_review',
+            model_name="review",
+            name="unique_review",
         ),
         migrations.RenameField(
-            model_name='comment',
-            old_name='Review',
-            new_name='review',
+            model_name="comment",
+            old_name="Review",
+            new_name="review",
         ),
         migrations.RenameField(
-            model_name='comment',
-            old_name='Text',
-            new_name='text',
+            model_name="comment",
+            old_name="Text",
+            new_name="text",
         ),
         migrations.AlterField(
-            model_name='review',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to=settings.AUTH_USER_MODEL, verbose_name='review author'),
+            model_name="review",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="reviews",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="review author",
+            ),
         ),
         migrations.AlterField(
-            model_name='review',
-            name='pub_date',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='review date'),
+            model_name="review",
+            name="pub_date",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="review date"),
         ),
         migrations.AlterField(
-            model_name='review',
-            name='score',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='review score'),
+            model_name="review",
+            name="score",
+            field=models.IntegerField(
+                validators=[
+                    django.core.validators.MinValueValidator(1),
+                    django.core.validators.MaxValueValidator(10),
+                ],
+                verbose_name="review score",
+            ),
         ),
         migrations.AlterField(
-            model_name='review',
-            name='text',
-            field=models.TextField(help_text='Напишите ваш отзыв', verbose_name='review text'),
+            model_name="review",
+            name="text",
+            field=models.TextField(
+                help_text="Напишите ваш отзыв", verbose_name="review text"
+            ),
         ),
         migrations.AlterField(
-            model_name='review',
-            name='title',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='reviews.Title', verbose_name='reviewed title'),
+            model_name="review",
+            name="title",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="reviews",
+                to="reviews.Title",
+                verbose_name="reviewed title",
+            ),
         ),
     ]

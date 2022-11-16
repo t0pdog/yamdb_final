@@ -12,13 +12,19 @@ from rest_framework_simplejwt.tokens import AccessToken
 from reviews.models import Category, Genre, Review, Title, User
 from .filters import TitlesFilter
 from .mixins import ListCreateDestroyViewSet
-from .permissions import (IsAdmin, IsAdminOrReadOnly,
-                          IsAdminModeratorOwnerOrReadOnly)
-from .serializers import (CategorySerializer, CommentSerializer,
-                          GenreSerializer, ReadOnlyTitleSerializer,
-                          RegisterDataSerializer, ReviewSerializer,
-                          TitleSerializer, TokenSerializer, UserEditSerializer,
-                          UserSerializer)
+from .permissions import IsAdmin, IsAdminOrReadOnly, IsAdminModeratorOwnerOrReadOnly
+from .serializers import (
+    CategorySerializer,
+    CommentSerializer,
+    GenreSerializer,
+    ReadOnlyTitleSerializer,
+    RegisterDataSerializer,
+    ReviewSerializer,
+    TitleSerializer,
+    TokenSerializer,
+    UserEditSerializer,
+    UserSerializer,
+)
 
 
 class CategoryViewSet(ListCreateDestroyViewSet):
@@ -40,9 +46,7 @@ class GenreViewSet(ListCreateDestroyViewSet):
 
 
 class TitleViewSet(viewsets.ModelViewSet):
-    queryset = Title.objects.all().annotate(
-        Avg("reviews__score")
-    ).order_by("name")
+    queryset = Title.objects.all().annotate(Avg("reviews__score")).order_by("name")
     serializer_class = TitleSerializer
     permission_classes = (IsAdminOrReadOnly,)
     filter_backends = [DjangoFilterBackend]
@@ -60,10 +64,7 @@ def register(request):
     serializer = RegisterDataSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
-    user = get_object_or_404(
-        User,
-        username=serializer.validated_data["username"]
-    )
+    user = get_object_or_404(User, username=serializer.validated_data["username"])
     confirmation_code = default_token_generator.make_token(user)
     send_mail(
         subject="YaMDb registration",
@@ -80,10 +81,7 @@ def register(request):
 def get_jwt_token(request):
     serializer = TokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    user = get_object_or_404(
-        User,
-        username=serializer.validated_data["username"]
-    )
+    user = get_object_or_404(User, username=serializer.validated_data["username"])
 
     if default_token_generator.check_token(
         user, serializer.validated_data["confirmation_code"]
@@ -117,11 +115,7 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
         if request.method == "PATCH":
-            serializer = self.get_serializer(
-                user,
-                data=request.data,
-                partial=True
-            )
+            serializer = self.get_serializer(user, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -138,7 +132,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
         return title.reviews.all()
 
     def perform_create(self, serializer):
-        title_id = self.kwargs.get('title_id')
+        title_id = self.kwargs.get("title_id")
         title = get_object_or_404(Title, id=title_id)
         serializer.save(author=self.request.user, title=title)
 
@@ -152,7 +146,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         return review.comments.all()
 
     def perform_create(self, serializer):
-        title_id = self.kwargs.get('title_id')
-        review_id = self.kwargs.get('review_id')
+        title_id = self.kwargs.get("title_id")
+        review_id = self.kwargs.get("review_id")
         review = get_object_or_404(Review, id=review_id, title=title_id)
         serializer.save(author=self.request.user, review=review)
