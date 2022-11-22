@@ -48,7 +48,6 @@ jobs:
         with:
           push: true
           tags: topd0g/infra_actions:v_1 
-          file: /Dockerfile
   
   deploy:
     runs-on: ubuntu-latest
