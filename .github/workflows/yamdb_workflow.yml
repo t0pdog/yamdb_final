@@ -26,6 +26,7 @@ jobs:
 
     - name: Test with flake8 and django tests
       run: |
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         python -m flake8 
         pytest
 
