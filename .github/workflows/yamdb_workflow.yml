@@ -47,7 +47,8 @@ jobs:
         uses: docker/build-push-action@v2 
         with:
           push: true
-          tags: topd0g/infra_actions:v_1 
+          tags: topd0g/infra_actions:v_1
+          file: api_yamdb/Dockerfile
   
   deploy:
     runs-on: ubuntu-latest
