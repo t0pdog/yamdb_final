@@ -61,6 +61,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            sudo docker pull topd0g/infra_actions:v_1
             sudo docker-compose stop
             sudo docker-compose rm web
             sudo systemctl stop nginx
