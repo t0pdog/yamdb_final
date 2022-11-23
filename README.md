@@ -239,14 +239,7 @@ docker-compose exec web python manage.py dumpdata > dumpPostrgeSQL.json
 ```bash
 docker-compose down -v 
 ```
-### Шаблон наполнения .env (не включен в текущий репозиторий) расположенный по пути infra/.env
+
 ```
-DB_ENGINE=django.db.backends.postgresql 
-DB_NAME=postgres 
-POSTGRES_USER=postgres 
-POSTGRES_PASSWORD=postgres 
-DB_HOST=db 
-DB_PORT=5432 
-```
-### Документация API YaMDb 
-Документация доступна по эндпойнту: http://localhost:8000/redoc/
+### Документация API YaMDb:
+Документация доступна по эндпойнту: http://62.84.117.181:8000/redoc/
