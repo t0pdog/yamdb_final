@@ -239,6 +239,6 @@ docker-compose exec web python manage.py dumpdata > dumpPostrgeSQL.json
 ```bash
 docker-compose down -v 
 ```
-```
+``
 ### Документация API YaMDb:
 Документация доступна по эндпойнту: http://158.160.33.175:8000/redoc/
